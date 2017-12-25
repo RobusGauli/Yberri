@@ -1,0 +1,26 @@
+{
+  "name": "yberri",
+  "version": "1.0.0",
+  "description": "A web framework with zero overhead routing that uses Route Graph.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobusGauli/Yberri.git"
+  },
+  "keywords": [
+    "Api",
+    "Framework",
+    "RouteGraph",
+    "Web",
+    "Framework"
+  ],
+  "author": "Robus Gauli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobusGauli/Yberri/issues"
+  },
+  "homepage": "https://github.com/RobusGauli/Yberri#readme"
+}
