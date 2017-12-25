@@ -59,7 +59,7 @@ class RouteGraph {
         
         routeNode.absolutePaths = [...currentPaths];
         
-        if(isVariableRoute(path)) {
+        if (isVariableRoute(path)) {
           currentNode.variableRouteNode = routeNode;
         } else {
           currentNode.routeChildren[path] = routeNode;
@@ -74,11 +74,42 @@ class RouteGraph {
       }
     }
   }
+
 }
 
-const r = new RouteGraph();
-r.add('/home/person', 'homepeson')
-r.add('/home/never', 'never');
-r.add('/<home>/love','homelove');
-r.add('/<home>/love/<person>/lover', 'koko');
-console.log(r);
+const _findNode = (node, paths, currentIndex = 0) => {
+  //console.log(node);
+  //console.log(paths);
+  
+  if (!paths) {
+    return node;
+  }
+  
+  if (currentIndex === paths.length) {
+    return node;
+  }
+
+  //grapb the nextNode
+  let nextNode = node.routeChildren[paths[currentIndex]];
+  if (!nextNode) {
+    if (node.variableRouteNode === null) {
+      return null;
+    }
+    
+    nextNode = node.variableRouteNode;
+  }
+  
+  return _findNode(nextNode, paths, currentIndex+1);
+}
+
+const findNodeFromGraph = routeGraph => 
+  paths =>
+    _findNode(routeGraph._rootNode, listOfPaths(paths));
+
+
+
+
+
+
+
+
