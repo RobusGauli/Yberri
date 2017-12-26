@@ -1,26 +1,23 @@
 
-class _Task {
-  constructor(value) {
-    this._value = value;
-  }
+const Task = (domain) => {
+  return new (class  {
+    constructor(value) {
+      this._value = value;
+    }
 
-  map(_function) {
-    //apply the transformation and return the _isntance
-    this._value = _function(this._value);
-    return this;
-  }
+    map(_function) {
+      //apply the transformation and return the _isntance
+      this._value = _function(this._value);
+      return this;
+    }
 
-  fold(_function) {
-    this._value = _function(this._value);
-    return this._value;
-  }
-
+    fold(_function) {
+      this._value = _function(this._value);
+      return this._value;
+    }
+  })(domain)
 }
-
-const Task = domain =>
-  new _Task(domain);
-
-
+  
 const zip = (alist, blist) =>
   alist.reduce((acc, val, index) =>
     [...acc, [val, blist[index]]], []);

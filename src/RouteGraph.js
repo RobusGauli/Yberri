@@ -78,24 +78,15 @@ class RouteGraph {
 }
 
 const _findNode = (node, paths, currentIndex = 0) => {
-  //console.log(node);
-  //console.log(paths);
   
-  if (!paths) {
+  if (!paths || currentIndex === paths.length) {
     return node;
   }
-  
-  if (currentIndex === paths.length) {
-    return node;
-  }
-
-  //grapb the nextNode
   let nextNode = node.routeChildren[paths[currentIndex]];
   if (!nextNode) {
     if (node.variableRouteNode === null) {
       return null;
     }
-    
     nextNode = node.variableRouteNode;
   }
   
