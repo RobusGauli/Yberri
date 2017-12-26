@@ -1,8 +1,8 @@
 {
   "name": "yberri",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "A web framework with zero overhead routing that uses Route Graph.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
