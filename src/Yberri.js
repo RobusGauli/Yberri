@@ -41,8 +41,6 @@ const Yberri = () =>
   _handler(request, response) {
   
     const routeNode = this._findNode(request.url);
-    console.log(request.method);
-    console.log(routeNode);
     if (!routeNode) {
       response.end(`No handler found in ${request.url}`);
     } else if (routeNode && !routeNode.handlerFunctionMap[request.method]) {
