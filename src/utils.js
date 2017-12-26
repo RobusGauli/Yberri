@@ -1,4 +1,14 @@
 
+
+//helper recursive promise resolver for middlewares
+const promiseChainResolver = (xs, func, request, response, ...args) =>
+xs.length === 1 ? xs[0](func, request, response, ...args) : 
+  xs[0](func, request, response, ...args)
+  .then(([func, request, response, ...args]) =>
+     promiseChainResolver(xs.slice(1), func, request, response, ...args));
+
+
+
 const Task = (domain) => {
   return new (class  {
     constructor(value) {
@@ -39,6 +49,7 @@ module.exports = {
   zip,
   zipWith,
   enumerate,
+  promiseChainResolver,
 };
 
 
