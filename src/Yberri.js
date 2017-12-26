@@ -11,17 +11,13 @@ const argsForHandler = (xs, ys) =>
 class Yberri {
   
   constructor() {
-    
-    //this._http = http.createServer(this._handler);
     this._handler = this._handler.bind(this);
     this._http = http.createServer(this._handler);
     //create and instance of thr route graph
     this._routeGraph = RouteGraph();
     this._findNode = findNodeFromGraph(this._routeGraph);
   }
-
   
-
   _handler(request, response) {
   
     const routeNode = this._findNode(request.url);
@@ -52,25 +48,25 @@ class Yberri {
 }
 
 
-//test
-let y = new Yberri();
-y.run('localhost', 4000);
-y.route('/home', test);
-y.route('/home/love', test);
-y.route('/home/<id>', main);
-y.route('/home/<name>/<age>', anotherAwesome);
+// //test
+// let y = new Yberri();
+// y.run('localhost', 4000);
+// y.route('/home', test);
+// y.route('/home/love', test);
+// y.route('/home/<id>', main);
+// y.route('/home/<name>/<age>', anotherAwesome);
 
-function test(request, response) {
-  console.log(request.url);
-  return 'hi this is a test function';
-}
+// function test(request, response) {
+//   console.log(request.url);
+//   return 'hi this is a test function';
+// }
 
-function main(request, response, id) {
-  console.log(id);
-  return `Hi from the dynamic routing overhead ${id}`
+// function main(request, response, id) {
+//   console.log(id);
+//   return `Hi from the dynamic routing overhead ${id}`
   
-}
+// }
 
-function anotherAwesome(request, response, name, age) {
-  return `HI have thre dyn ${name} and ${age};`
-}
+// function anotherAwesome(request, response, name, age) {
+//   return `HI have thre dyn ${name} and ${age};`
+// }
