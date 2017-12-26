@@ -15,12 +15,17 @@ const y =  Yberri()
 
 
 
-y.route('/home', homeHandler);
-y.route('/home/<person>', personHandler);
+y.route('/home', homeHandler, methods=['GET', 'POST']);
+y.route('/home', putHandler, methods=['PUT']);
+y.route('/home/<person>', personHandler, methods=['PUT']);
 
 function personHandler(request, response, person) {
   response.setHeader('love', 'islove');
   response.jsonify({name: 'robus'});
+}
+
+function putHandler(request, response) {
+  response.jsonify({'putter' :'putty'})
 }
 
 function homeHandler(request, response) {

@@ -41,16 +41,17 @@ const Yberri = () =>
   _handler(request, response) {
   
     const routeNode = this._findNode(request.url);
-    
+    console.log(request.method);
+    console.log(routeNode);
     if (!routeNode) {
       response.end(`No handler found in ${request.url}`);
-    } else if (routeNode && !routeNode.handlerFunction) {
+    } else if (routeNode && !routeNode.handlerFunctionMap[request.method]) {
       
       response.end(`No handler Function in ${request.url}`)
     } else {
       
       const args = argsForHandler(routeNode.absolutePaths, listOfPaths(request.url));
-      const handlerFunction = routeNode.handlerFunction;
+      const handlerFunction = routeNode.handlerFunctionMap[request.method];
 
       if(this._middlewares.length >= 1) {
         promiseChainResolver(
@@ -75,9 +76,9 @@ const Yberri = () =>
     }
   }
 
-  route(path, handler) {
+  route(path, handler, methods=['GET']) {
     //put the path and the handler 
-    this._routeGraph.add(path, handler);
+    this._routeGraph.add(path, handler, methods);
     return this;
   }
 

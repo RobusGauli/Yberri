@@ -2,7 +2,7 @@ const { Task, enumerate } = require('./utils');
 
 const RouteNode = (route, handlerFunction=null) => ({
   route,
-  handlerFunction,
+  handlerFunctionMap: {},
   routeChildren: {},
   variableRouteNode: null,
   absolutePaths: null,
@@ -33,7 +33,7 @@ const RouteGraph = () =>
       this._rootNode = RouteNode('/')
     }
 
-    add(paths, handlerFunction) {
+    add(paths, handlerFunction, methods) {
 
       const pathList = listOfPaths(paths);
       let currentPaths = [];
@@ -41,7 +41,10 @@ const RouteGraph = () =>
       if (!pathList) {
         //if this is the root path
         //then place it in the root route path
-        this._rootNode.handlerFunction = handlerFunction;
+        for(let method of methods) {
+          this._rootNode.handlerFunctionMap[method] = handlerFunction;  
+        }
+        
         return;
       }
       
@@ -69,7 +72,9 @@ const RouteGraph = () =>
         }
 
         if (index === pathList.length - 1) {
-          currentNode.handlerFunction = handlerFunction;
+          for(let method of methods) {
+            currentNode.handlerFunctionMap[method] = handlerFunction;
+          }
         }
       }
     }
