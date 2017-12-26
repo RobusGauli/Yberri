@@ -27,55 +27,53 @@ const isVariableRoute = path =>
 
 
 
-class RouteGraph {
-  constructor() {
-    this._rootNode = RouteNode('/')
-  }
-
-  add(paths, handlerFunction) {
-
-    const pathList = listOfPaths(paths);
-    let currentPaths = [];
-    
-    if (!pathList) {
-      //if this is the root path
-      //then place it in the root route path
-      this._rootNode.handlerFunction = handlerFunction;
-      return;
+const RouteGraph = () => 
+  new (class  {
+    constructor() {
+      this._rootNode = RouteNode('/')
     }
-    
-    let currentNode = this._rootNode;
-    
-    for(let [index, path] of enumerate(pathList)) {
-      currentPaths.push(path);
+
+    add(paths, handlerFunction) {
+
+      const pathList = listOfPaths(paths);
+      let currentPaths = [];
       
-      if(currentNode.routeChildren.hasOwnProperty(path)) {
-        currentNode = currentNode.routeChildren[path];
-      } else if (currentNode.variableRouteNode) {
-        currentNode = currentNode.variableRouteNode;
-      } else {
-        //create a new node
-        const routeNode = RouteNode(path);
-        
-        routeNode.absolutePaths = [...currentPaths];
-        
-        if (isVariableRoute(path)) {
-          currentNode.variableRouteNode = routeNode;
-        } else {
-          currentNode.routeChildren[path] = routeNode;
-        }
-        currentNode = routeNode;
-        
-        
+      if (!pathList) {
+        //if this is the root path
+        //then place it in the root route path
+        this._rootNode.handlerFunction = handlerFunction;
+        return;
       }
+      
+      let currentNode = this._rootNode;
+      
+      for(let [index, path] of enumerate(pathList)) {
+        currentPaths.push(path);
+        
+        if(currentNode.routeChildren.hasOwnProperty(path)) {
+          currentNode = currentNode.routeChildren[path];
+        } else if (currentNode.variableRouteNode) {
+          currentNode = currentNode.variableRouteNode;
+        } else {
+          //create a new node
+          const routeNode = RouteNode(path);
+          
+          routeNode.absolutePaths = [...currentPaths];
+          
+          if (isVariableRoute(path)) {
+            currentNode.variableRouteNode = routeNode;
+          } else {
+            currentNode.routeChildren[path] = routeNode;
+          }
+          currentNode = routeNode;
+        }
 
-      if (index === pathList.length - 1) {
-        currentNode.handlerFunction = handlerFunction;
+        if (index === pathList.length - 1) {
+          currentNode.handlerFunction = handlerFunction;
+        }
       }
     }
-  }
-
-}
+  })();
 
 const _findNode = (node, paths, currentIndex = 0) => {
   
@@ -98,6 +96,11 @@ const findNodeFromGraph = routeGraph =>
     _findNode(routeGraph._rootNode, listOfPaths(paths));
 
 
+module.exports = {
+  RouteGraph,
+  findNodeFromGraph,
+  listOfPaths,
+};
 
 
 
