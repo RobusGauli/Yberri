@@ -70,3 +70,6 @@ class Yberri {
 // function anotherAwesome(request, response, name, age) {
 //   return `HI have thre dyn ${name} and ${age};`
 // }
+module.exports = {
+  Yberri,
+};
