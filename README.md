@@ -74,6 +74,30 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
 
 ```
 
+### Apply Body Parser middleware and get the content of the request with ease. 
+
+```javascript
+
+  const { Yberri, bodyParserMiddleware } = require('yberri');
+  
+  //handler for POST
+  function echoPostRequest(request, response, name, age) {
+    const body = response.body;
+  	console.log('Do something with  body of the request')
+  	response.jsonify({ "sane" : body });
+  }
+  
+  //here is your yberri on the rock$roll
+  const app = Yberri()
+    .applyMiddleware(bodyParserMiddleware);
+    
+  app.route('/home/<name>/<age>', echoName, methods=['POST']);
+  app.run('localhost', 4000); // host and port
+  
+ //Boom no extra layer of library to just parse a body. 
+  
+
+```
 ## 🎓 License
 
 [MIT](http://webpro.mit-license.org/)
