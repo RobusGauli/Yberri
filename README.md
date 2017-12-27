@@ -83,8 +83,8 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
   //handler for POST
   function echoPostRequest(request, response, name, age) {
     const body = response.body;
-  	console.log('Do something with  body of the request')
-  	response.jsonify({ "sane" : body });
+  console.log('Do something with  body of the request')
+ 	response.jsonify({ "sane" : body });
   }
   
   //here is your yberri on the rock$roll
