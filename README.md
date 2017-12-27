@@ -83,14 +83,17 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
   //handler for POST
   function echoPostRequest(request, response, name, age) {
     const body = response.body;
-  console.log('Do something with  body of the request')
- 	response.jsonify({ "sane" : body });
+    console.log('Do something with  body of the request')
+ 	  response.jsonify({ "sane" : body });
   }
   
-  //here is your yberri on the rock$roll
+  
+  //middleware to your root of the app
   const app = Yberri()
     .applyMiddleware(bodyParserMiddleware);
     
+  
+  
   app.route('/home/<name>/<age>', echoName, methods=['POST']);
   app.run('localhost', 4000); // host and port
   
@@ -98,6 +101,8 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
   
 
 ```
+
+## Want more features?? Write your own cool middleware and send a pull request. Plug and Play is the key! Have fun!!
 ## 🎓 License
 
 [MIT](http://webpro.mit-license.org/)
