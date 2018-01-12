@@ -5,7 +5,7 @@
 const http = require('http');
 const { Task } = require('./utils');
 
-function bodyParserMiddleware(handler, request, response, ...args) {
+function bodyParserMiddleware(handler, request, response) {
   //request.setEncoding('utf8');
   let data = '';
   request.setEncoding('utf8');
@@ -16,7 +16,7 @@ function bodyParserMiddleware(handler, request, response, ...args) {
   
     request.on('end', () => {
       response.body = data;
-      resolve([handler, request, response, ...args]);
+      resolve([handler, request, response]);
     })
     
     request.on('close', () => {
@@ -25,7 +25,7 @@ function bodyParserMiddleware(handler, request, response, ...args) {
   })
 }
 
-function bodyParserErrorHandler(request, response, ...args) {
+function bodyParserErrorHandler(request, response) {
   response.writeHead(203, {
     'Content-Type': 'application/json',
   });

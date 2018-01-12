@@ -1,15 +1,38 @@
 {
-  "name": "yberri",
-  "version": "1.4.0",
+  "_from": "yberri",
+  "_id": "yberri@1.4.0",
+  "_inBundle": false,
+  "_integrity": "sha512-XgHl0NrJAxKewjM+0h0NywjqqiN8mKzJF1QKUy2HNF5rektRuys/qZdJS0BkSu76nz+G0RrbCGwf6Z1FlxcbRg==",
+  "_location": "/yberri",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "yberri",
+    "name": "yberri",
+    "escapedName": "yberri",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/yberri/-/yberri-1.4.0.tgz",
+  "_shasum": "df69eec885bcd4f14e774e0131b66b409d64c556",
+  "_spec": "yberri",
+  "_where": "/Users/robusgauli/Desktop/yberri/yberri-backend",
+  "author": {
+    "name": "Robus Gauli"
+  },
+  "bugs": {
+    "url": "https://github.com/RobusGauli/Yberri/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
   "description": "A web framework with zero overhead routing that uses Route Graph.",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RobusGauli/Yberri.git"
-  },
+  "homepage": "https://github.com/RobusGauli/Yberri#readme",
   "keywords": [
     "Api",
     "Framework",
@@ -17,10 +40,15 @@
     "Web",
     "Framework"
   ],
-  "author": "Robus Gauli",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/RobusGauli/Yberri/issues"
+  "main": "src/index.js",
+  "name": "yberri",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobusGauli/Yberri.git"
   },
-  "homepage": "https://github.com/RobusGauli/Yberri#readme"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.4.0"
 }

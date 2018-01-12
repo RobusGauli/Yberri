@@ -22,7 +22,7 @@ augmentResponse(ServerResponse);
 const argsForHandler = (xs, ys) =>
   zip(xs, ys)
   .filter(([x, y]) => x.startsWith('<') && x.endsWith('>'))
-  .map(([x, y]) => y)
+  .reduce((acc, [x, y]) => ({...acc, [x.slice(1, x.length - 1)]: y}), {})
 
 
 
@@ -48,8 +48,10 @@ const Yberri = () =>
       response.end(`No handler Function in ${request.url}`)
     } else {
       
-      const args = argsForHandler(routeNode.absolutePaths, listOfPaths(request.url));
+      const variablePath = argsForHandler(routeNode.absolutePaths, listOfPaths(request.url));
       const handlerFunction = routeNode.handlerFunctionMap[request.method];
+      request.variablePath = variablePath;
+      
 
       if(this._middlewares.length >= 1) {
         promiseChainResolver(
@@ -57,19 +59,22 @@ const Yberri = () =>
           handlerFunction,
           request,
           response,
-          ...args
         ).then(([
           handlerFunction,
           request,
           response,
-          ...args
-        ]) => handlerFunction(request, response, ...args))
-        .catch(errorHandler => 
-          errorHandler(request, response, ...args))
+        ]) => handlerFunction(request, response))
+        .catch(errorHandler => {
+          if(typeof errorHandler === 'function') {
+            errorHandler(request, response)
+          } else {
+            throw new Error('errorHandler')
+          }
+        })
         
       
     } else {
-        handlerFunction(request, response, ...args);
+        handlerFunction(request, response);
       }
     }
   }
@@ -85,7 +90,7 @@ const Yberri = () =>
     return this;
   }
   
-  run(host, port, onSuccess=() => console.log('Server Running...')) {
+  run(host, port, onSuccess=() => console.log(`Server Running on host ${host} and port ${port} ...`)) {
     this._http.listen(port, host, onSuccess);
   }
 })();
