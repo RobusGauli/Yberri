@@ -1,4 +1,5 @@
-# Yberri-minimalist 🚀
+# Yberri-minimalist 🚀 🚀 🚀
+
 
 Yberri is a microframework for Node-js based on tries based robust routing, easy middleware binding, and plus made with sane intention.
 
@@ -74,6 +75,35 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
 
 ```
 
+### Apply Body Parser middleware and get the content of the request with ease. 
+
+```javascript
+
+  const { Yberri, bodyParserMiddleware } = require('yberri');
+  
+  //handler for POST
+  function echoPostRequest(request, response, name, age) {
+    const body = response.body;
+    console.log('Do something with  body of the request')
+ 	  response.jsonify({ "sane" : body });
+  }
+  
+  
+  //middleware to your root of the app
+  const app = Yberri()
+    .applyMiddleware(bodyParserMiddleware);
+    
+  
+  
+  app.route('/home/<name>/<age>', echoName, methods=['POST']);
+  app.run('localhost', 4000); // host and port
+  
+ //Boom no extra layer of library to just parse a body. 
+  
+
+```
+
+## Want more features?? Write your own cool middleware and send a pull request. Plug and Play is the key! Have fun!!
 ## 🎓 License
 
 [MIT](http://webpro.mit-license.org/)
