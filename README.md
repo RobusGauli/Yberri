@@ -39,7 +39,9 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
   const { Yberri } = require('yberri');
   
   //handler
-  function echoName(request, response, name) {
+  function echoName(request, response) {
+    // value of dynamic path
+    const { name } = request.variablePath;
   	response.jsonify({ "sane" : name });
   }
   
@@ -60,14 +62,13 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
   const { Yberri } = require('yberri');
   
   //handler is called for GET and POST
-  function echoName(request, response, name, age) {
-  	console.log('Do something with age')
-  	response.jsonify({ "sane" : name });
+  function echoName(request, response) {
+  	response.jsonify({ 'getpost': 'method for both get and post' });
   }
   
   //here is your yberri on the rock$roll
   const app = Yberri();
-  app.route('/home/<name>/<age>', echoName, methods=['GET', 'POST']);
+  app.route('/home', echoName, methods=['GET', 'POST']);
   app.run('localhost', 4000); // host and port
   
  //seriosuly thats it. 
@@ -81,6 +82,11 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
 
   const { Yberri, bodyParserMiddleware } = require('yberri');
   
+  //middleware to your root of the app
+  const app = Yberri()
+    .applyMiddleware(bodyParserMiddleware);
+    
+  
   //handler for POST
   function echoPostRequest(request, response, name, age) {
     const body = response.body;
@@ -89,10 +95,6 @@ Routing is based on the tries algorithm, so handler dispatch for routes is blazi
   }
   
   
-  //middleware to your root of the app
-  const app = Yberri()
-    .applyMiddleware(bodyParserMiddleware);
-    
   
   
   app.route('/home/<name>/<age>', echoName, methods=['POST']);
